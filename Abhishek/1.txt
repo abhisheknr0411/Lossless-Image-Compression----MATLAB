@@ -1,1 +1,21 @@
 
+Answer for YUV encoding 
+https://stackoverflow.com/a/42639009
+
+Noise Reduction Theory using Adaptive Filters
+https://in.mathworks.com/help/dsp/ug/overview-of-adaptive-filters-and-applications.html
+
+Lossless vs. Lossy Images
+https://imagify.io/blog/lossless-vs-lossy-image-compression/
+
+DWT based Lossless algo
+https://in.mathworks.com/matlabcentral/fileexchange/49856-a-dwt-based-lossless-gray-image-compression
+
+Why Image is converted to double floating
+https://in.mathworks.com/matlabcentral/answers/233674-why-an-image-is-converted-to-double-using-i-im2double-i-in-matlab
+
+Paper1: Lossless Image Compression(Uploaded)
+http://www.ijsce.org/wp-content/uploads/papers/v7i1/A2950037117.pdf
+
+
+
