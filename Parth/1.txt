@@ -1,1 +1,3 @@
-
+What is masking and its use in dct?
+Stack Overflow answer to 'masking in dct compression':
+https://stackoverflow.com/questions/15002993/masking-in-dct-compression
