@@ -39,13 +39,13 @@ end
 if nargout
     [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
 else
-    %gui_mainfcn(gui_State, varargin{:});
+    gui_mainfcn(gui_State, varargin{:});
 end
 % End initialization code - DO NOT EDIT
 
 
 % --- Executes just before ImageCompression1 is made visible.
-function ImageCompression1_OpeningFcn(hObject, eventdata, handles, varargin)
+function ImageCompression1_OpeningFcn(hObject, ~, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -58,8 +58,8 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 guidata(hObject, handles);
-set(handles.axes1,'visible','off')
-set(handles.axes2,'visible','off')
+set(handles.axes3,'visible','off')
+set(handles.axes4,'visible','off')
 axis off
 axis off
 % UIWAIT makes ImageCompression1 wait for user response (see UIRESUME)
@@ -67,7 +67,7 @@ axis off
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = ImageCompression1_OutputFcn(hObject, eventdata, handles) 
+function varargout = ImageCompression1_OutputFcn(~, ~, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -89,11 +89,13 @@ fileinfo = dir(file_name);
 SIZE = fileinfo.bytes;
 Size = SIZE/1024;
 set(handles.text7,'string',Size);
-imshow(file_name,'Parent', handles.axes1)
+imshow(file_name,'Parent', handles.axes3)
+
+
 
 % --- Executes on button press in pushbutton2.
 function pushbutton2_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton2 (see GCBO)
+
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % hObject    handle to pushbutton2 (see GCBO)
@@ -104,52 +106,75 @@ if(~ischar(file_name))
    errordlg('Please select Images first');
 else
     I1 = imread(file_name);
-% I1 = imread('chicken.jpg');
 I = I1(:,:,1);
 I = im2double(I);
-T = dctmtx(8);
-B = blkproc(I,[8 8],'P1*x*P2',T,T');
-mask = [1   1   1   1   0   0   0   0
-        1   1   1   0   0   0   0   0
-        1   1   0   0   0   0   0   0
-        1   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0];
-B2 = blkproc(B,[8 8],'P1.*x',mask);
-I2 = blkproc(B2,[8 8],'P1*x*P2',T',T);
+T = dctmtx(16);
+B = blkproc(I,[16 16],'P1*x*P2',T,T');
+mask = [1   1   1   1   1   1   1   1	1   0   0   0   0   0   0   0
+        1   1   1   1	1   1	1   1	0   0   0   0   0   0   0   0
+        1   1   1   1	1   1   1   0	0   0   0   0   0   0   0   0
+        1   1	1   1   1   1   1   0	0   0   0   0   0   0   0   0
+        1   1   1   1   1   1   0   0	0   0   0   0   0   0   0   0
+        1   1   1   1   1   0   0   0	0   0   0   0   0   0   0   0
+        1   1   1   1   0   0   0   0	0   0   0   0   0   0   0   0
+        1   1   1   0   0   0   0   0	0   0   0   0   0   0   0   0
+        1   1   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        1   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0];
+B2 = blkproc(B,[16 16],'P1.*x',mask);
+I2 = blkproc(B2,[16 16],'P1*x*P2',T',T);
 
 I = I1(:,:,2);
 I = im2double(I);
-T = dctmtx(8);
-B = blkproc(I,[8 8],'P1*x*P2',T,T');
-mask = [1   1   1   1   0   0   0   0
-        1   1   1   0   0   0   0   0
-        1   1   0   0   0   0   0   0
-        1   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0];
-B2 = blkproc(B,[8 8],'P1.*x',mask);
-I3 = blkproc(B2,[8 8],'P1*x*P2',T',T);
+T = dctmtx(16);
+B = blkproc(I,[16 16],'P1*x*P2',T,T');
+mask = [1   1   1   1   1   1   1   1	1   0   0   0   0   0   0   0
+        1   1   1   1	1   1	1   1	0   0   0   0   0   0   0   0
+        1   1   1   1	1   1   1   0	0   0   0   0   0   0   0   0
+        1   1	1   1   1   1   1   0	0   0   0   0   0   0   0   0
+        1   1   1   1   1   1   0   0	0   0   0   0   0   0   0   0
+        1   1   1   1   1   0   0   0	0   0   0   0   0   0   0   0
+        1   1   1   1   0   0   0   0	0   0   0   0   0   0   0   0
+        1   1   1   0   0   0   0   0	0   0   0   0   0   0   0   0
+        1   1   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        1   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0];
+B2 = blkproc(B,[16 16],'P1.*x',mask);
+I3 = blkproc(B2,[16 16],'P1*x*P2',T',T);
 
 
 I = I1(:,:,3);
 I = im2double(I);
-T = dctmtx(8);
-B = blkproc(I,[8 8],'P1*x*P2',T,T');
-mask = [1   1   1   1   0   0   0   0
-        1   1   1   0   0   0   0   0
-        1   1   0   0   0   0   0   0
-        1   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0
-        0   0   0   0   0   0   0   0];
-B2 = blkproc(B,[8 8],'P1.*x',mask);
-I4 = blkproc(B2,[8 8],'P1*x*P2',T',T);
+T = dctmtx(16);
+B = blkproc(I,[16 16],'P1*x*P2',T,T');
+mask = [1   1   1   1   1   1   1   1	1   0   0   0   0   0   0   0
+        1   1   1   1	1   1	1   1	0   0   0   0   0   0   0   0
+        1   1   1   1	1   1   1   0	0   0   0   0   0   0   0   0
+        1   1	1   1   1   1   1   0	0   0   0   0   0   0   0   0
+        1   1   1   1   1   1   0   0	0   0   0   0   0   0   0   0
+        1   1   1   1   1   0   0   0	0   0   0   0   0   0   0   0
+        1   1   1   1   0   0   0   0	0   0   0   0   0   0   0   0
+        1   1   1   0   0   0   0   0	0   0   0   0   0   0   0   0
+        1   1   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        1   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0
+        0   0   0   0   0   0   0   0	0   0   0   0   0   0   0   0];
+B2 = blkproc(B,[16 16],'P1.*x',mask);
+I4 = blkproc(B2,[16 16],'P1*x*P2',T',T);
 
 
 L(:,:,:)=cat(3,I2, I3, I4);
@@ -159,5 +184,6 @@ fileinfo = dir('CompressedColourImage.jpg');
 SIZE = fileinfo.bytes;
 Size = SIZE/1024;
 set(handles.text8,'string',Size);
-imshow(L,'Parent', handles.axes2)
+%ims=imsharpen(L,'Radius',2,'Amount',0.5);
+imshow(L,'Parent', handles.axes4)
 end
