@@ -1,0 +1,12 @@
+Masking involves setting some of the pixel values in an image to zero, or some other "background" value. 
+Masking can be done in one of two ways:-
+1.Using an image as a mask. A mask image is simply an image where some of the pixel intensity values are zero, and others are non-zero. 
+Wherever the pixel intensity value is zero in the mask image, then the pixel intensity of the resulting masked image will be set to the background value (normally zero).
+Using a set of ROIs as the mask. The ROIs for each slice are used to define the mask.
+
+Binary masks:-
+Binary masks are used to change specific bits in the original value to the desired setting(s) or to create a specific output value. 
+A binary mask is used to change one or more bits from 1 to 0 or vice versa using a boolean comparison operation.
+Masking out image area using binary mask in matlab-
+https://in.mathworks.com/matlabcentral/answers/38547-masking-out-image-area-using-binary-mask
+
