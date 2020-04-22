@@ -1,4 +1,7 @@
 
-## A Lossless Image Compression Algorithm implemented using MATLAB
 
-Principles of Digital Communications Project- April 20,2020.
+
+# Principles of Digital Communication Project
+## A Lossless Image Compression Algorithm implemented using MATLAB
+Under guidance of Prof.Nandhini Manian
+- April 20,2020
